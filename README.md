@@ -1,2 +1,2 @@
-# summer-fun
+# Summer Fun
 A functional micro-framework.
