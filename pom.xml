@@ -2,19 +2,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>io.summerframework</groupId>
+	<groupId>io.summerfun</groupId>
 	<artifactId>summer-fun-core</artifactId>
 	<version>1.0.0</version>
-	<name>summer-fun</name>
 	<packaging>jar</packaging>
+	<name>Summer Fun</name>
+	<description>Summer Fun is a functional micro-framework for Java.</description>
+	
 	<properties>
-		<hk2.version>2.4.0</hk2.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -34,6 +36,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
 	<build>
 		<resources>
 			<resource>

@@ -1,9 +1,9 @@
-package io.summerframework;
+package io.summerfun;
 
-import io.summerframework.http.Request;
-import io.summerframework.http.RequestImpl;
-import io.summerframework.http.Response;
-import io.summerframework.http.ResponseImpl;
+import io.summerfun.http.Request;
+import io.summerfun.http.RequestImpl;
+import io.summerfun.http.Response;
+import io.summerfun.http.ResponseImpl;
 
 public class Summer {
 	

@@ -1,4 +1,4 @@
-package io.summerframework;
+package io.summerfun;
 
 @FunctionalInterface
 public interface Message {
