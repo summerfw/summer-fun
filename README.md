@@ -1,2 +1,2 @@
 # Summer Fun
-A functional micro-framework.
+Summer Fun is a functional micro-framework for Java.
