@@ -33,6 +33,11 @@ public class SampleApp {
 }
 ```
 
+# Features
+* Inspired by microframeworks from different programming languages - [Slim Framework](https://www.slimframework.com), [ExpressJS](https://expressjs.com), [Spark](http://sparkjava.com).
+* Uses Grizzly HTTP Server framework, a component of Grizzly NIO framework which has been designed to help developers to take advantage of the Java™ NIO API.
+* Lightweight
+
 # Getting started
 Clone the repository and install using Maven:
 ```
