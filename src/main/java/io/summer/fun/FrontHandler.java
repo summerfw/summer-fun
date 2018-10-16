@@ -17,15 +17,16 @@ public class FrontHandler extends HttpHandler {
         this.setRequest(request);
         this.setResponse(response);
 
-        this.matchRoute();
-
         String contextPath = this.request.getContextPath();
         String currentHttpMethod = this.request.getMethod();
         String currentPath = this.request.getRequestUri();
         List<Route> routes = routeCollection.routes();
         Route currentRoute = routes.stream()
                 .filter(route -> route.getHttpMethod().equals(currentHttpMethod))
-                .filter(route -> (contextPath + route.getPath()).equals(currentPath))
+                .filter(route -> {
+                    String newRoutePath = this.matchRoute(currentPath, contextPath + route.getPath());
+                    return (currentPath).equals(newRoutePath);
+                })
                 .findFirst().orElse(new Route(null, null, (req, res) -> {
                     System.out.println("Error");
                     res.setStatus(404);
@@ -64,11 +65,54 @@ public class FrontHandler extends HttpHandler {
         this.routeCollection = routeCollection;
     }
 
-    public void matchRoute() {
-        String contextPath = this.request.getContextPath();
-        String currentHttpMethod = this.request.getMethod();
-        String currentPath = this.request.getRequestUri();
-        List<Route> routes = routeCollection.routes();
+    public String matchRoute(String currentPath, String routePath) {
+        if (currentPath.equals(routePath)) {
+            return currentPath;
+        } else {
+            String[] currentPathSegments = currentPath.split("/");
+            String[] routePathSegments = routePath.split("/");
+            if (currentPathSegments.length != routePathSegments.length && (currentPathSegments.length - routePathSegments.length == 1) && currentPathSegments[1].equals(routePathSegments[0])) {
+                String[] newRoutePathSegments = new String[routePathSegments.length];
+                newRoutePathSegments[0] = currentPathSegments[0];
+                for (int i = 1; i < currentPathSegments.length; i++) {
+                    if (routePathSegments[i - 1].equals(currentPathSegments[i])) {
+                        newRoutePathSegments[i] = currentPathSegments[i];
+                    } else {
+                        boolean hasCurlyBraces = routePathSegments[i].startsWith("{") && routePathSegments[i].endsWith("}") ? true : false;
+                        if (hasCurlyBraces) {
+                            newRoutePathSegments[i] = currentPathSegments[i];
+                        } else {
+                            newRoutePathSegments[i] = routePathSegments[i];
+                        }
+                    }
+                }
+
+                return String.join("/", newRoutePathSegments);
+
+            } else if (currentPathSegments.length == routePathSegments.length) {
+                String[] newRoutePathSegments = new String[routePathSegments.length];
+                for (int i = 0; i < routePathSegments.length; i++) {
+                    if (routePathSegments[i].equals(currentPathSegments[i])) {
+                        newRoutePathSegments[i] = routePathSegments[i];
+                    } else {
+                        boolean hasCurlyBraces = routePathSegments[i].startsWith("{") && routePathSegments[i].endsWith("}") ? true : false;
+                        if (hasCurlyBraces) {
+                            newRoutePathSegments[i] = currentPathSegments[i];
+                            String pathParamName = routePathSegments[i].substring(1, routePathSegments[i].length() - 1);
+                            String pathParamValue = currentPathSegments[i];
+                            this.request.setPathParam(pathParamName, pathParamValue);
+                        } else {
+                            newRoutePathSegments[i] = routePathSegments[i];
+                        }
+                    }
+                }
+
+                return String.join("/", newRoutePathSegments);
+
+            } else {
+                return routePath;
+            }
+        }
     }
 
     public void compileRoute() {

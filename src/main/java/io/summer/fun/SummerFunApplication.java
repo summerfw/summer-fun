@@ -14,15 +14,21 @@ public class SummerFunApplication {
     private String path;
 
     public SummerFunApplication() {
-        this.request = new Request();
-        this.response = new Response();
         this.routeCollection =  new RouteCollection();
+    }
+
+    public String getContextPath() {
+        return contextPath.get();
     }
 
     public SummerFunApplication withContextPath(String contextPath) {
         this.contextPath = Optional.of(contextPath);
 
         return this;
+    }
+
+    public int getPort() {
+        return this.port.get();
     }
 
     public SummerFunApplication withPort(int port) {
@@ -61,15 +67,14 @@ public class SummerFunApplication {
         }
     }
 
-    public void run(Handler handler) {
+    public void run(Function function) {
         HttpServer server = HttpServer.createSimpleServer("/webapp", this.port.get());
         FrontHandler frontHandler = new FrontHandler();
         frontHandler.setRouteCollection(routeCollection);
         server.getServerConfiguration().addHttpHandler(frontHandler, contextPath.get());
         try {
             server.start();
-            handler.handle(request, response);
-            System.out.println("Press any key to stop the server...");
+            function.apply();
             System.in.read();
         } catch (Exception e) {
             System.err.println(e);

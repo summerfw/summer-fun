@@ -1,11 +1,15 @@
 package io.summer.fun;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Request
  */
 public class Request {
 
     private org.glassfish.grizzly.http.server.Request request;
+    private Map<String, String> pathParams = new HashMap<>();
 
     public org.glassfish.grizzly.http.server.Request getRequest() {
         return request;
@@ -35,12 +39,20 @@ public class Request {
         return this.request.getRequestURI();
     }
 
-    public String getQueryParam(String parameter) {
+    public String getParam(String parameter) {
         return this.request.getParameter(parameter);
     }
 
     public String getPathParam(String parameter) {
-        return this.request.getParameter(parameter);
+        return this.pathParams.get(parameter);
+    }
+
+    public void setPathParam(String parameter, String value) {
+        this.pathParams.put(parameter, value);
+    }
+
+    public Map<String, String> getPathParams() {
+        return this.pathParams;
     }
 
 }
