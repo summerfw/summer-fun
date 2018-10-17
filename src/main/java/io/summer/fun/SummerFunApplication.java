@@ -2,7 +2,10 @@ package io.summer.fun;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class SummerFunApplication {
 
@@ -37,10 +40,23 @@ public class SummerFunApplication {
         return this;
     }
 
-    public SummerFunApplication route(String path) {
-        this.path = path;
+    public void addRoute(String httpMethod, String path, Handler handler) {
+        this.routeCollection.add(new Route(httpMethod.toUpperCase(), path, handler));
+    }
 
-        return this;
+    public void addRoute(Route route) {
+        route.getHttpMethod().toUpperCase();
+        this.routeCollection.add(route);
+    }
+
+    public void setRouteCollection(RouteCollection routeCollection) {
+        List<Route> routes = routeCollection.routes().stream()
+                .map(route -> {
+                    route.getHttpMethod().toUpperCase();
+                    return route;
+                })
+                .collect(Collectors.toList());
+        this.routeCollection.addAll(routes);
     }
 
     public void get(String path, Handler handler) {
@@ -51,20 +67,28 @@ public class SummerFunApplication {
         this.addRoute(HttpMethod.POST, path, handler);
     }
 
-    public void addRoute(String httpMethod, String path, Handler handler) {
-        this.routeCollection.add(new Route(httpMethod, path, handler));
+    public void put(String path, Handler handler) {
+        this.addRoute(HttpMethod.PUT, path, handler);
     }
 
-    public void addRoute(Route route) {
-        this.routeCollection.add(route);
+    public void delete(String path, Handler handler) {
+        this.addRoute(HttpMethod.DELETE, path, handler);
     }
 
-    public void setRouteCollection(RouteCollection routeCollection) {
-        if (this.routeCollection.routes().isEmpty())
-            this.routeCollection = routeCollection;
-        else {
-            this.routeCollection.addAll(routeCollection.routes());
-        }
+    public void head(String path, Handler handler) {
+        this.addRoute(HttpMethod.HEAD, path, handler);
+    }
+
+    public void trace(String path, Handler handler) {
+        this.addRoute(HttpMethod.TRACE, path, handler);
+    }
+
+    public void connect(String path, Handler handler) {
+        this.addRoute(HttpMethod.CONNECT, path, handler);
+    }
+
+    public void options(String path, Handler handler) {
+        this.addRoute(HttpMethod.OPTIONS, path, handler);
     }
 
     public void run(Function function) {
