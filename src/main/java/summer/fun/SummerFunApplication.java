@@ -1,10 +1,9 @@
-package io.summer.fun;
+package summer.fun;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class SummerFunApplication {

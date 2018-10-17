@@ -2,6 +2,8 @@
 Summer Fun is a microframework for Java.
 
 ```java
+import summer.fun.SummerFunApplication;
+
 public class SampleApp {
     public static void main(String[] args) {
         SummerFunApplication app = new SummerFunApplication();

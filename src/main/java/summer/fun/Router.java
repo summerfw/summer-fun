@@ -1,4 +1,4 @@
-package io.summer.fun;
+package summer.fun;
 
 /**
  * Router

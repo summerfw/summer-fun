@@ -1,4 +1,4 @@
-package io.summer.fun;
+package summer.fun;
 
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.Request;
@@ -8,8 +8,8 @@ import java.util.List;
 
 public class FrontHandler extends HttpHandler {
 
-    private io.summer.fun.Request request;
-    private io.summer.fun.Response response;
+    private summer.fun.Request request;
+    private summer.fun.Response response;
     private RouteCollection routeCollection;
 
     @Override
@@ -37,22 +37,22 @@ public class FrontHandler extends HttpHandler {
         handler.handle(this.request, this.response);
     }
 
-    public io.summer.fun.Request getRequest() {
+    public summer.fun.Request getRequest() {
         return request;
     }
 
     public void setRequest(Request request) {
-        io.summer.fun.Request req = new io.summer.fun.Request();
+        summer.fun.Request req = new summer.fun.Request();
         req.setRequest(request);
         this.request = req;
     }
 
-    public io.summer.fun.Response getResponse() {
+    public summer.fun.Response getResponse() {
         return response;
     }
 
     public void setResponse(Response response) {
-        io.summer.fun.Response resp = new io.summer.fun.Response();
+        summer.fun.Response resp = new summer.fun.Response();
         resp.setResponse(response);
         this.response = resp;
     }
