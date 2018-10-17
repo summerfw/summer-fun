@@ -13,18 +13,6 @@ public class SampleApp {
              response.json(users);
         });
 
-        app.get("/users/{id}", (request, response) -> {
-            int id = Integer.parseInt(request.getPathParam("id"));
-            if (id == 1) {
-                String user = "{\"id\": 1, \"lastName\": \"Rizal\", \"firsName\": \"Jose\"}";
-                response.json(user);
-            } else {
-                response.setStatus(404);
-                String json = "{\"error\": {\"code\": 404, \"message\": \"Resource Not Found\"}}";
-                response.json(json);
-            }
-        });
-
         app.run(() -> {
             System.out.println("Application is running on port " + app.getPort());
             System.out.println("Press any key to stop the server...");
@@ -35,7 +23,7 @@ public class SampleApp {
 
 # Features
 * Inspired by microframeworks from different programming languages - [Slim Framework](https://www.slimframework.com), [ExpressJS](https://expressjs.com), [Spark](http://sparkjava.com).
-* Uses Grizzly HTTP Server framework, a component of Grizzly NIO framework which has been designed to help developers to take advantage of the Java™ NIO API.
+* Uses Grizzly HTTP Server framework, a component of [Grizzly](https://javaee.github.io/grizzly) NIO framework which has been designed to help developers to take advantage of the Java™ NIO API.
 * Lightweight
 
 # Getting started
@@ -69,7 +57,7 @@ http://localhost:8083/app/contact
 This is not ready fo production yet. Any suggestions and help would be highly appreciated.
 
 # License
-Summer Fun, a Java microframework.
+Summer Fun, a Java microframework.  
 Copyright (C) 2018  Julian V. Jupiter
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
