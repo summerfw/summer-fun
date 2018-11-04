@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>summer.fun</groupId>
 	<artifactId>summer-fun-core</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Summer Fun</name>
 	<description>Summer Fun is a functional micro-framework for Java.</description>
