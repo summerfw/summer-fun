@@ -5,6 +5,7 @@ import org.glassfish.grizzly.http.server.Request;
 import org.glassfish.grizzly.http.server.Response;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class FrontHandler extends HttpHandler {
 
@@ -33,8 +34,8 @@ public class FrontHandler extends HttpHandler {
                     res.setContentType("text/html");
                     res.send("<h1>Error 404, page not found!</h1>");
                 }));
-        Handler handler = currentRoute.getHandler();
-        handler.handle(this.request, this.response);
+        BiConsumer<summer.fun.Request, summer.fun.Response> handler = currentRoute.getHandler();
+        handler.accept(this.request, this.response);
     }
 
     public summer.fun.Request getRequest() {
