@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Summer Fun Microframework - by Julian Jupiter</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/prismjs/css/prism.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/starter-template.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-summer">
+        <a class="navbar-brand" href="http://julianjupiter.github.io/summer-fun">Summer Fun</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/julianjupiter/summer-fun">Download</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main role="main">
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading" id="title">Summer Fun Microframework</h1>
+                <p class="lead text-muted">Summer Fun is a functional microframework for Java.</p>
+            </div>
+        </section>
+        <div class="py-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <pre>
+                            <code class="language-java">
+                                import summer.fun.SummerFunApplication;
+
+                                public class SampleApp {
+                                    public static void main(String[] args) {
+                                        SummerFunApplication app = new SummerFunApplication();
+
+                                        app.get("/users", (request, response) -> {
+                                            String users = "[{\"id\": 1, \"lastName\": \"Rizal\", \"firsName\": \"Jose\"}," +
+                                                "{\"id\": 2, \"lastName\": \"Bonifacio\", \"firsName\": \"Andres\"}," +
+                                                "{\"id\": 3, \"lastName\": \"Mabini\", \"firsName\": \"Apolinario\"}]";
+                                            response.json(users);
+                                        });
+
+                                        app.run(() -> {
+                                            System.out.println("Application is running on port " + app.getPort());
+                                            System.out.println("Press any key to stop the server...");
+                                        });
+                                    }
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Features</h5>
+                                <hr>
+                                <ul>
+                                    <li>Inspired by microframeworks from different programming languages - <a href="https://www.slimframework.com" title="Slim Framework">Slim Framework</a>, <a href="https://expressjs.com" title="ExpressJS">ExpressJS</a>, <a href="http://sparkjava.com" title="Spark">Spark</a>.</li>
+                                    <li>Uses Grizzly HTTP Server framework, a component of <a href="https://javaee.github.io/grizzly" title="Grizzly">Grizzly</a> NIO framework which has been designed to help developers to take advantage of the Java™ NIO API.</li>
+                                    <li>Lightweight</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Get Started</h5>
+                                <hr>
+                                <p>Clone the repository and install using Maven:</p>
+                                <pre>
+                                    <code class="language-bash">
+                                        git clone https://github.com/julianjupiter/summer-fun
+                                        cd summer-fun
+                                        mvn install
+                                    </code>
+                                </pre>
+                                <p>Clone, build, and run sample application:</p>
+                                <pre>
+                                    <code class="language-bash">
+                                        git clone https://github.com/julianjupiter/summer-fun-sample
+                                        cd summer-fun-sample
+                                        mvn package
+                                        java -jar ./target/summer-fun-sample-1.0.0.jar
+                                    </code>
+                                </pre>
+                                <p>Open browser:</p>
+                                <ul>
+                                    <li>http://localhost:8083/app/users</li>
+                                    <li>http://localhost:8083/app/users/1</li>
+                                    <li>http://localhost:8083/app/users/2</li>
+                                    <li>http://localhost:8083/app/users/3</li>
+                                    <li>http://localhost:8083/app/home</li>
+                                    <li>http://localhost:8083/app/hello</li>
+                                    <li>http://localhost:8083/app/contact</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body">
+                                <h5>License</h5>
+                                <hr>
+                                <p><strong>Summer Fun, a Java microframework.<br>Copyright (C) 2018  Julian V. Jupiter</strong></p>
+                                <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+                                <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
+                                <p>You should have received a copy of the GNU General Public License along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- /.container -->
+
+    <footer class="footer">
+        <div class="container">
+            <div class="col-sm-12">
+                <p>&copy;
+                    <script>
+                        document.write((new Date()).getFullYear());
+                    </script>
+                    <a href="https://julianjupiter.github.io" title="Julian Jupiter">Julian Jupiter</a><br>
+                    <a href="https://github.com/julianjupiter/summer-fun/" title="Summer Fun Microframework">Summer Fun</a><br> All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="./assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+    <script src="./assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./assets/vendor/prismjs/js/prism.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="./assets/js/site.js"></script>
+</body>
+
+</html>
