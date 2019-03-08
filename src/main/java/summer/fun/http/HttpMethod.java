@@ -1,25 +1,23 @@
 package summer.fun.http;
 
-public class HttpMethod {
+public enum HttpMethod {
+    CONNECT("CONNECT"),
+    DELETE("DELETE"),
+    GET("GET"),
+    HEAD("HEAD"),
+    OPTIONS("OPTIONS"),
+    PATCH("PATCH"),
+    POST("POST"),
+    PUT("PUT"),
+    TRACE("TRACE");
 
-    public static final String GET = "GET";
+    private final String name;
 
-    public static final String POST = "POST";
-
-    public static final String PUT = "PUT";
-
-    public static final String DELETE = "DELETE";
-
-    public static final String HEAD = "HEAD";
-
-    public static final String TRACE = "TRACE";
-
-    public static final String CONNECT = "CONNECT";
-
-    public static final String OPTIONS = "OPTIONS";
-
-    private HttpMethod() {
-        throw new AssertionError();
+    HttpMethod(String name) {
+        this.name = name;
     }
 
+    public String getName() {
+        return this.name;
+    }
 }

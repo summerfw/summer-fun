@@ -1,22 +1,26 @@
 package summer.fun;
 
-import summer.fun.http.Http;
+import summer.fun.http.HttpMethod;
+import summer.fun.http.HttpRequest;
+import summer.fun.http.HttpResponse;
+
+import java.util.function.BiConsumer;
 
 /**
  * Route
  */
 public class Route {
-    private final Http.Method httpMethod;
+    private final HttpMethod httpMethod;
     private final String path;
-    private final Object handler;
+    private final BiConsumer<HttpRequest, HttpResponse> handler;
 
-    public Route(Http.Method httpMethod, String path, Object handler) {
+    public Route(HttpMethod httpMethod, String path, BiConsumer<HttpRequest, HttpResponse> handler) {
         this.httpMethod = httpMethod;
         this.path = path;
         this.handler = handler;
     }
 
-    public Http.Method getHttpMethod() {
+    public HttpMethod getHttpMethod() {
         return httpMethod;
     }
 
@@ -24,7 +28,7 @@ public class Route {
         return path;
     }
 
-    public Object getHandler() {
+    public BiConsumer<HttpRequest, HttpResponse> getHandler() {
         return handler;
     }
 
