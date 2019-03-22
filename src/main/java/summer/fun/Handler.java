@@ -10,8 +10,7 @@ import summer.fun.http.HttpStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Handler extends org.glassfish.grizzly.http.server.HttpHandler {
-
+public class Handler extends HttpHandler {
     private HttpRequest request;
     private HttpResponse response;
     private RouteCollection routeCollection;

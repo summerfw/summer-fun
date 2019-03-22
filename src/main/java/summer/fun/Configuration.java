@@ -1,14 +1,34 @@
 package summer.fun;
 
+import java.util.Optional;
+
 public class Configuration {
-    private String host = "localhost";
-    private int port = 8080;
     private String contextPath = "/";
+    private String host = "localhost";
+    private int port = 8082;
+    public static final String STATIC_MAPPING = "/";
+    public static final String WEBAPP_DIR = "src/main/webapp";
+
+    private Configuration() {
+
+    }
 
     private Configuration(Builder builder) {
-        this.host = builder.host;
-        this.port = builder.port;
-        this.contextPath = builder.contextPath;
+        this.host = Optional.ofNullable(builder.host).orElse("localhost");
+        this.port = Optional.ofNullable(builder.port).orElse(8082);
+        this.contextPath = Optional.ofNullable(builder.contextPath).orElse("/");
+    }
+
+    public static Configuration create() {
+        return new Configuration();
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public String getContextPath() {
+        return contextPath;
     }
 
     public String getHost() {
@@ -19,26 +39,22 @@ public class Configuration {
         return port;
     }
 
-    public String getContextPath() {
-        return contextPath;
-    }
-
     public static class Builder {
         private String host;
-        private int port;
+        private Integer port;
         private String contextPath;
 
-        public Builder host(String host) {
+        public Builder withHost(String host) {
             this.host = host;
             return this;
         }
 
-        public Builder port(int port) {
+        public Builder withPort(int port) {
             this.port = port;
             return this;
         }
 
-        public Builder contextPath(String contextPath) {
+        public Builder withContextPath(String contextPath) {
             this.contextPath = contextPath;
             return this;
         }

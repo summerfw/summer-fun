@@ -8,80 +8,40 @@ import summer.fun.http.HttpMethod;
 import summer.fun.http.HttpRequest;
 import summer.fun.http.HttpResponse;
 
-import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class SummerFun {
 
     private Configuration configuration;
-    private HttpRequest request;
-    private HttpResponse response;
     private RouteCollection routeCollection;
-    private Optional<String> contextPath = Optional.of("/");
-    private Optional<String> host = Optional.of("localhost");
-    private Optional<Integer> port = Optional.of(8080);
-    private static final String STATIC_MAPPING = "/";
-    private static final String SOURCES_MAIN = "src/main/";
-    private Optional<String> staticRootDirectory = Optional.of("webapp");
-    private static final String STATIC = "src/main/resurces/static";
-    private String path;
+
 
     public SummerFun() {
+        this.configuration = Configuration.create();
         this.routeCollection =  new RouteCollection();
     }
 
-    public SummerFun withConfig(Configuration configuration) {
+    public SummerFun withConfiguration(Configuration configuration) {
         this.configuration = configuration;
 
         return this;
     }
 
-    public String getContextPath() {
-        return contextPath.get();
+    public Configuration getConfiguration() {
+        return configuration;
     }
 
-    public SummerFun withContextPath(String contextPath) {
-        this.contextPath = Optional.of(contextPath);
-
-        return this;
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
     }
 
-    public String getHost() {
-        return this.host.get();
-    }
-
-    public SummerFun withHost(String host) {
-        this.host = Optional.of(host);
-
-        return this;
-    }
-
-    public int getPort() {
-        return this.port.get();
-    }
-
-    public SummerFun withPort(int port) {
-        this.port = Optional.of(port);
-
-        return this;
-    }
-
-    public String getStaticRootDirectory() {
-        return this.staticRootDirectory.get();
-    }
-
-    public SummerFun withStaticRootDirectory(String directory) {
-        if (directory.trim().startsWith("/"))
-            directory = directory.substring(1);
-        if (directory.trim().endsWith("/"))
-            throw new IllegalArgumentException("Static directory " + directory + " is invalid. Remove trailing '/'.");
-        this.staticRootDirectory = Optional.of(directory);
-
-        return this;
+    public RouteCollection getRouteCollection() {
+        return routeCollection;
     }
 
     public void addRoute(HttpMethod httpMethod, String path, BiConsumer<HttpRequest, HttpResponse> handler) {
-        path = contextPath.get() + path;
+        String contextPath = this.configuration.getContextPath();
+        if (!contextPath.equals("/")) path = contextPath + path;
         this.routeCollection.add(new Route(httpMethod, path, handler));
     }
 
@@ -138,14 +98,14 @@ public class SummerFun {
 
     public void run(Runnable runnable) {
         final HttpServer server = new HttpServer();
-        NetworkListener networkListener = new NetworkListener("summer-fun-listener", this.host.get(), this.port.get());
+        NetworkListener networkListener = new NetworkListener("summer-fun-listener", this.configuration.getHost(), this.configuration.getPort());
         server.addListener(networkListener);
-        StaticHttpHandler staticHttpHandler = new StaticHttpHandler(SOURCES_MAIN + staticRootDirectory.get());
+        StaticHttpHandler staticHttpHandler = new StaticHttpHandler(Configuration.WEBAPP_DIR);
         ServerConfiguration config = server.getServerConfiguration();
-        config.addHttpHandler(staticHttpHandler, STATIC_MAPPING);
+        config.addHttpHandler(staticHttpHandler, Configuration.STATIC_MAPPING);
         Handler handler = new Handler();
         handler.setRouteCollection(routeCollection);
-        config.addHttpHandler(handler, contextPath.get());
+        config.addHttpHandler(handler, this.configuration.getContextPath());
         try {
             server.start();
             runnable.run();

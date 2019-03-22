@@ -31,5 +31,4 @@ public class Route {
     public BiConsumer<HttpRequest, HttpResponse> getHandler() {
         return handler;
     }
-
 }
