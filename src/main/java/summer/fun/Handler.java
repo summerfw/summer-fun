@@ -63,7 +63,6 @@ public class Handler extends HttpHandler {
         resp.setResponse(response);
         resp.setViewResolver(this.viewResolver);
         this.response = resp;
-        System.out.println(this.response.getViewResolver());
     }
 
     public RouteCollection getRouteCollection() {

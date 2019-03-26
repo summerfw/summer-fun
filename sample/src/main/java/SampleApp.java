@@ -11,12 +11,14 @@ import java.util.Map;
 public class SampleApp {
     public static void main(String[] args) {
         ViewResolver viewResolver = new PebbleViewResolver();
-        viewResolver.setPrefix("templates/");
+        viewResolver.setPrefix("templates");
         viewResolver.setSuffix(".html");
+
         Configuration config = Configuration.builder()
-                .withContextPath("/api")
+                .withContextPath("/app")
                 .withViewResolver(viewResolver)
                 .build();
+
         SummerFun app = new SummerFun()
                 .withConfiguration(config);
 

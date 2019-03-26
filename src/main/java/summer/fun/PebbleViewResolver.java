@@ -29,7 +29,7 @@ public class PebbleViewResolver implements ViewResolver {
     @Override
     public Writer process(String template, Map<String, Object> attributes) {
         PebbleEngine engine = new PebbleEngine.Builder().build();
-        PebbleTemplate compiledTemplate = engine.getTemplate(this.prefix + template + suffix);
+        PebbleTemplate compiledTemplate = engine.getTemplate(this.prefix + "/" + template + suffix);
         Writer writer = new StringWriter();
         try {
             if (attributes != null) {

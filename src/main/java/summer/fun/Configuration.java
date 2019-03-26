@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public class Configuration {
     private String host = "localhost";
-    private int port = 8082;
+    private int port = 8080;
     private String contextPath = "/";
     private ViewResolver viewResolver;
     public static final String STATIC_MAPPING = "/";
@@ -17,7 +17,7 @@ public class Configuration {
 
     private Configuration(Builder builder) {
         this.host = Optional.ofNullable(builder.host).orElse("localhost");
-        this.port = Optional.ofNullable(builder.port).orElse(8082);
+        this.port = Optional.ofNullable(builder.port).orElse(8080);
         this.contextPath = Optional.ofNullable(builder.contextPath).orElse("/");
         this.viewResolver = builder.viewResolver;
     }
