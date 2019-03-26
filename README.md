@@ -11,7 +11,8 @@ public class SampleApp {
         Configuration config = Configuration.builder()
             .withContextPath("/api")
             .build();
-        SummerFun app = new SummerFun();
+        SummerFun app = new SummerFun()
+            .withConfiguration(config);
 
         app.get("/heroes", (request, response) -> {
             List<Hero> heroes = getHeroes();
