@@ -105,6 +105,7 @@ public class SummerFun {
         config.addHttpHandler(staticHttpHandler, Configuration.STATIC_MAPPING);
         Handler handler = new Handler();
         handler.setRouteCollection(routeCollection);
+        handler.setViewResolver(this.configuration.getViewResolver());
         config.addHttpHandler(handler, this.configuration.getContextPath());
         try {
             server.start();

@@ -1,13 +1,11 @@
 package summer.fun.http;
 
-import com.mitchellbosecke.pebble.PebbleEngine;
-import com.mitchellbosecke.pebble.template.PebbleTemplate;
 import summer.fun.ContentType;
+import summer.fun.ViewResolver;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
 
@@ -18,6 +16,7 @@ public class HttpResponse {
 
     private org.glassfish.grizzly.http.server.Response response;
     private Jsonb jsonb;
+    private ViewResolver viewResolver;
 
     public org.glassfish.grizzly.http.server.Response getResponse() {
         return response;
@@ -25,6 +24,14 @@ public class HttpResponse {
 
     public void setResponse(org.glassfish.grizzly.http.server.Response response) {
         this.response = response;
+    }
+
+    public ViewResolver getViewResolver() {
+        return viewResolver;
+    }
+
+    public void setViewResolver(ViewResolver viewResolver) {
+        this.viewResolver = viewResolver;
     }
 
     public Writer getWriter() {
@@ -94,22 +101,12 @@ public class HttpResponse {
     }
 
     public void render(String template, Map<String, Object> attributes) {
-        try {
-            PebbleEngine engine = new PebbleEngine.Builder().build();
-            PebbleTemplate compiledTemplate = engine.getTemplate("templates/" + template + ".html");
-
-            Writer writer = new StringWriter();
-            if (attributes != null) {
-                compiledTemplate.evaluate(writer, attributes);
-            } else {
-                compiledTemplate.evaluate(writer);
-            }
-
+        if (this.viewResolver != null) {
+            Writer writer = this.viewResolver.process(template, attributes);
             String output = writer.toString();
             this.html().send(output);
-        } catch (IOException exception) {
-            System.out.println("Template=" + template);
-            System.out.println(attributes);
+        } else {
+            this.html().send("<!doctype html><html><head><meta charset=\"UTF-8\"><title>Summer Fun Error</title></head><body><p>No ViewResolver has been configured.</p></body></html>");
         }
     }
 

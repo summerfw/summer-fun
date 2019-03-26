@@ -17,10 +17,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for user in users %}
+                            {% for hero in heroes %}
                                 <tr>
-                                    <th>{{ user.id }}</th>
-                                    <td>{{ user.firstName }} {{ user.lastName }}</td>
+                                    <th>{{ hero.id }}</th>
+                                    <td>{{ hero.firstName }} {{ hero.lastName }}</td>
                                 </tr>
                             {% else %}
                                 <tr>

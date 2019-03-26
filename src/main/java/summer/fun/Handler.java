@@ -14,6 +14,7 @@ public class Handler extends HttpHandler {
     private HttpRequest request;
     private HttpResponse response;
     private RouteCollection routeCollection;
+    private ViewResolver viewResolver;
 
     @Override
     public void service(Request request, Response response) throws Exception {
@@ -60,7 +61,9 @@ public class Handler extends HttpHandler {
     public void setResponse(Response response) {
         HttpResponse resp = new HttpResponse();
         resp.setResponse(response);
+        resp.setViewResolver(this.viewResolver);
         this.response = resp;
+        System.out.println(this.response.getViewResolver());
     }
 
     public RouteCollection getRouteCollection() {
@@ -69,6 +72,10 @@ public class Handler extends HttpHandler {
 
     public void setRouteCollection(RouteCollection routeCollection) {
         this.routeCollection = routeCollection;
+    }
+
+    public void setViewResolver(ViewResolver viewResolver) {
+        this.viewResolver = viewResolver;
     }
 
     public String matchRoute(String currentPath, String routePath) {
