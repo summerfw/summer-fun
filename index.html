@@ -65,12 +65,6 @@
                                             response.json().send(users);
                                         });
 
-                                        // http://localhost:8080/api/users/1
-                                        app.get("/users", (request, response) -> {
-                                            List&lt;User&gt; users = findUsers();
-                                            response.json().send(users);
-                                        });
-
                                         app.run(() -> {
                                             System.out.println("Application is running on port " + config.getPort());
                                             System.out.println("Press any key to stop the server...");
