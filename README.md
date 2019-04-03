@@ -95,13 +95,12 @@ java -jar ./target/summer-fun-sample-1.0.0.jar
 
 Open browser:
 ```
+http://localhost:8083/
 http://localhost:8083/app/users
 http://localhost:8083/app/users/1
 http://localhost:8083/app/users/2
 http://localhost:8083/app/users/3
-http://localhost:8083/app/home
-http://localhost:8083/app/hello
-http://localhost:8083/app/contact
+http://localhost:8083/app/user-list
 ```
 
 # Disclaimer
