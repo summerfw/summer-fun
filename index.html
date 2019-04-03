@@ -52,19 +52,77 @@
 
                                 public class SampleApp {
                                     public static void main(String[] args) {
-                                        SummerFunApplication app = new SummerFunApplication();
+                                        Configuration config = Configuration.builder()
+                                            .withContextPath("/api")
+                                            .build();
 
+                                        SummerFun app = new SummerFun()
+                                            .withConfiguration(config);
+
+                                        // http://localhost:8080/api/users
                                         app.get("/users", (request, response) -> {
-                                            String users = "[{\"id\": 1, \"lastName\": \"Rizal\", \"firsName\": \"Jose\"}," +
-                                                "{\"id\": 2, \"lastName\": \"Bonifacio\", \"firsName\": \"Andres\"}," +
-                                                "{\"id\": 3, \"lastName\": \"Mabini\", \"firsName\": \"Apolinario\"}]";
+                                            List<User> users = findUsers();
                                             response.json(users);
                                         });
 
                                         app.run(() -> {
-                                            System.out.println("Application is running on port " + app.getPort());
+                                            System.out.println("Application is running on port " + config.getPort());
                                             System.out.println("Press any key to stop the server...");
                                         });
+                                    }
+
+                                    public static List<User> findUsers() {
+                                        List<User> users = new ArrayList<>();
+
+                                        User user1 = new User();
+                                        user1.setId(1);
+                                        user1.setLastName("Rizal");
+                                        user1.setFirstName("Jose");
+                                        users.add(user1);
+
+                                        User user2 = new User();
+                                        user2.setId(2);
+                                        user2.setLastName("Bonifacio");
+                                        user2.setFirstName("Andres");
+                                        users.add(user2);
+
+                                        User user3 = new User();
+                                        user3.setId(3);
+                                        user3.setLastName("Mabini");
+                                        user3.setFirstName("Apolinario");
+                                        users.add(user3);
+
+                                        return users;
+                                    }
+                                }
+
+                                class User {
+                                    private int id;
+                                    private String lastName;
+                                    private String firstName;
+
+                                    public int getId() {
+                                        return id;
+                                    }
+
+                                    public void setId(int id) {
+                                        this.id = id;
+                                    }
+
+                                    public String getLastName() {
+                                        return lastName;
+                                    }
+
+                                    public void setLastName(String lastName) {
+                                        this.lastName = lastName;
+                                    }
+
+                                    public String getFirstName() {
+                                        return firstName;
+                                    }
+
+                                    public void setFirstName(String firstName) {
+                                        this.firstName = firstName;
                                     }
                                 }
                             </code>
