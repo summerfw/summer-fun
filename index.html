@@ -61,7 +61,7 @@
 
                                         // http://localhost:8080/api/users
                                         app.get("/users", (request, response) -> {
-                                            List<<User>> users = findUsers();
+                                            List&lt;User&gt; users = findUsers();
                                             response.json().send(users);
                                         });
 
@@ -72,7 +72,7 @@
                                     }
 
                                     public static List<User> findUsers() {
-                                        List<<User>> users = new ArrayList<>();
+                                        List&lt;User&gt; users = new ArrayList<>();
 
                                         User user1 = new User();
                                         user1.setId(1);
