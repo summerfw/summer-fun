@@ -62,7 +62,7 @@
                                         // http://localhost:8080/api/users
                                         app.get("/users", (request, response) -> {
                                             List<User> users = findUsers();
-                                            response.json(users);
+                                            response.json().send(users);
                                         });
 
                                         app.run(() -> {
