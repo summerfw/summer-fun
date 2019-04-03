@@ -50,7 +50,7 @@ public class HttpResponse {
         return this.response.getStatus();
     }
 
-    private void setStatus(int status) {
+    public void setStatus(int status) {
         this.response.setStatus(status);
     }
 

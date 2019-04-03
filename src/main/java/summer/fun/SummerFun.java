@@ -5,16 +5,10 @@ import org.glassfish.grizzly.http.server.NetworkListener;
 import org.glassfish.grizzly.http.server.ServerConfiguration;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import summer.fun.http.HttpMethod;
-import summer.fun.http.HttpRequest;
-import summer.fun.http.HttpResponse;
-
-import java.util.function.BiConsumer;
 
 public class SummerFun {
-
     private Configuration configuration;
     private RouteCollection routeCollection;
-
 
     public SummerFun() {
         this.configuration = Configuration.create();
@@ -39,53 +33,51 @@ public class SummerFun {
         return routeCollection;
     }
 
-    public void addRoute(HttpMethod httpMethod, String path, BiConsumer<HttpRequest, HttpResponse> handler) {
-        String contextPath = this.configuration.getContextPath();
-        if (!contextPath.equals("/")) path = contextPath + path;
-        this.routeCollection.add(new Route(httpMethod, path, handler));
+    public void addRoute(HttpMethod httpMethod, String path, RequestHandler handler) {
+        this.routeCollection.add(new Route(httpMethod, path, handler), this.configuration);
     }
 
     public void addRoute(Route route) {
-        this.routeCollection.add(route);
+        this.routeCollection.add(route, this.configuration);
     }
 
     public void setRouteCollection(RouteCollection routeCollection) {
-        this.routeCollection.addAll(routeCollection.routes());
+        this.routeCollection.addAll(routeCollection.routes(), this.configuration);
     }
 
-    public void get(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void get(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.GET, path, handler);
     }
 
-    public void post(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void post(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.POST, path, handler);
     }
 
-    public void put(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void put(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.PUT, path, handler);
     }
 
-    public void delete(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void delete(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.DELETE, path, handler);
     }
 
-    public void head(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void head(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.HEAD, path, handler);
     }
 
-    public void trace(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void trace(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.TRACE, path, handler);
     }
 
-    public void connect(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void connect(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.CONNECT, path, handler);
     }
 
-    public void options(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void options(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.OPTIONS, path, handler);
     }
 
-    public void any(String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public void any(String path, RequestHandler handler) {
         this.addRoute(HttpMethod.GET, path, handler);
         this.addRoute(HttpMethod.POST, path, handler);
         this.addRoute(HttpMethod.PUT, path, handler);
@@ -115,5 +107,4 @@ public class SummerFun {
             System.err.println(e);
         }
     }
-
 }

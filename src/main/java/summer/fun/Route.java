@@ -10,11 +10,11 @@ import java.util.function.BiConsumer;
  * Route
  */
 public class Route {
-    private final HttpMethod httpMethod;
-    private final String path;
-    private final BiConsumer<HttpRequest, HttpResponse> handler;
+    private HttpMethod httpMethod;
+    private String path;
+    private RequestHandler handler;
 
-    public Route(HttpMethod httpMethod, String path, BiConsumer<HttpRequest, HttpResponse> handler) {
+    public Route(HttpMethod httpMethod, String path, RequestHandler handler) {
         this.httpMethod = httpMethod;
         this.path = path;
         this.handler = handler;
@@ -24,11 +24,23 @@ public class Route {
         return httpMethod;
     }
 
+    public void setHttpMethod(HttpMethod httpMethod) {
+        this.httpMethod = httpMethod;
+    }
+
     public String getPath() {
         return path;
     }
 
-    public BiConsumer<HttpRequest, HttpResponse> getHandler() {
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public RequestHandler getHandler() {
         return handler;
+    }
+
+    public void setHandler(RequestHandler handler) {
+        this.handler = handler;
     }
 }

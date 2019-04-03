@@ -36,12 +36,12 @@ public class Handler extends HttpHandler {
                     error.setStatus(HttpStatus.NOT_FOUND_404.getCode());
                     error.setError("Resource does not exist.");
                     error.setPath(currentPath);
-                    res.status(HttpStatus.NOT_FOUND_404);
+                    res.setStatus(HttpStatus.NOT_FOUND_404.getCode());
                     res.setContentType(ContentType.APPLICATION_JSON);
                     res.send(error);
                 }));
 
-        currentRoute.getHandler().accept(this.request, this.response);
+        currentRoute.getHandler().handle(this.request, this.response);
     }
 
     public HttpRequest getRequest() {
