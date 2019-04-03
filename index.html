@@ -65,6 +65,12 @@
                                             response.json().send(users);
                                         });
 
+                                        // http://localhost:8080/api/users/1
+                                        app.get("/users", (request, response) -> {
+                                            List&lt;User&gt; users = findUsers();
+                                            response.json().send(users);
+                                        });
+
                                         app.run(() -> {
                                             System.out.println("Application is running on port " + config.getPort());
                                             System.out.println("Press any key to stop the server...");
@@ -165,13 +171,12 @@
                                 </pre>
                                 <p>Open browser:</p>
                                 <ul>
+                                    <li>http://localhost:8083/app</li>
                                     <li>http://localhost:8083/app/users</li>
                                     <li>http://localhost:8083/app/users/1</li>
                                     <li>http://localhost:8083/app/users/2</li>
                                     <li>http://localhost:8083/app/users/3</li>
-                                    <li>http://localhost:8083/app/home</li>
-                                    <li>http://localhost:8083/app/hello</li>
-                                    <li>http://localhost:8083/app/contact</li>
+                                    <li>http://localhost:8083/app/user-list</li>
                                 </ul>
                             </div>
                         </div>
