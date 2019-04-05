@@ -1,6 +1,5 @@
 package summer.fun;
 
-import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.Request;
 import org.glassfish.grizzly.http.server.Response;
 import summer.fun.http.HttpRequest;
@@ -10,7 +9,7 @@ import summer.fun.http.HttpStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Handler extends HttpHandler {
+public class HttpHandler extends org.glassfish.grizzly.http.server.HttpHandler {
     private HttpRequest request;
     private HttpResponse response;
     private RouteCollection routeCollection;

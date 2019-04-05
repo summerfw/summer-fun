@@ -95,10 +95,10 @@ public class SummerFun {
         StaticHttpHandler staticHttpHandler = new StaticHttpHandler(Configuration.WEBAPP_DIR);
         ServerConfiguration config = server.getServerConfiguration();
         config.addHttpHandler(staticHttpHandler, Configuration.STATIC_MAPPING);
-        Handler handler = new Handler();
-        handler.setRouteCollection(routeCollection);
-        handler.setViewResolver(this.configuration.getViewResolver());
-        config.addHttpHandler(handler, this.configuration.getContextPath());
+        HttpHandler httpHandler = new HttpHandler();
+        httpHandler.setRouteCollection(routeCollection);
+        httpHandler.setViewResolver(this.configuration.getViewResolver());
+        config.addHttpHandler(httpHandler, this.configuration.getContextPath());
         try {
             server.start();
             runnable.run();
