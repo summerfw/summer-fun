@@ -1,24 +1,25 @@
 package summer.fun;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
+import summer.fun.util.Constants;
+import summer.fun.util.StringPool;
 
 public class Configuration {
-    private String host = "localhost";
+    private String host = Constants.LOCALHOST;
     private int port = 8080;
-    private String contextPath = "/";
+    private String contextPath = StringPool.FORWARD_SLASH;
     private ViewResolver viewResolver;
-    public static final String STATIC_MAPPING = "/";
-    public static final String WEBAPP_DIR = "src/main/webapp";
+    public static final String STATIC_MAPPING = StringPool.FORWARD_SLASH;
+    public static final String WEBAPP_DIR = Constants.WEBAPP;
 
     private Configuration() {
 
     }
 
     private Configuration(Builder builder) {
-        this.host = Optional.ofNullable(builder.host).orElse("localhost");
+        this.host = Optional.ofNullable(builder.host).orElse(Constants.LOCALHOST);
         this.port = Optional.ofNullable(builder.port).orElse(8080);
-        this.contextPath = Optional.ofNullable(builder.contextPath).orElse("/");
+        this.contextPath = Optional.ofNullable(builder.contextPath).orElse(StringPool.FORWARD_SLASH);
         this.viewResolver = builder.viewResolver;
     }
 

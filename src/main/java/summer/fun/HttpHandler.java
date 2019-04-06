@@ -8,29 +8,62 @@ import summer.fun.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import summer.fun.util.StringPool;
 
 public class HttpHandler extends org.glassfish.grizzly.http.server.HttpHandler {
     private HttpRequest request;
     private HttpResponse response;
-    private RouteCollection routeCollection;
+    private List<Route> routes;
     private ViewResolver viewResolver;
+
+    public HttpRequest getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        var req = new HttpRequest();
+        req.setRequest(request);
+        this.request = req;
+    }
+
+    public HttpResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        var resp = new HttpResponse();
+        resp.setResponse(response);
+        resp.setViewResolver(this.viewResolver);
+        this.response = resp;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
+
+    public void setViewResolver(ViewResolver viewResolver) {
+        this.viewResolver = viewResolver;
+    }
 
     @Override
     public void service(Request request, Response response) throws Exception {
         this.setRequest(request);
         this.setResponse(response);
 
-        String currentHttpMethod = this.request.getMethod();
-        String currentPath = this.request.getRequestUri();
-        List<Route> routes = routeCollection.routes();
-        Route currentRoute = routes.stream()
+        var currentHttpMethod = this.request.getMethod();
+        var currentPath = this.request.getRequestUri();
+        var currentRoute = routes.stream()
                 .filter(route -> route.getHttpMethod().getName().equals(currentHttpMethod))
                 .filter(route -> {
-                    String newRoutePath = this.matchRoute(currentPath, route.getPath());
+                    var newRoutePath = this.matchRoute(currentPath, route.getPath());
                     return (currentPath).equals(newRoutePath);
                 })
                 .findFirst().orElse(new Route(null, null, (req, res) -> {
-                    Error error = new Error();
+                    var error = new Error();
                     error.setTimestamp(LocalDateTime.now());
                     error.setStatus(HttpStatus.NOT_FOUND_404.getCode());
                     error.setError("Resource does not exist.");
@@ -43,45 +76,12 @@ public class HttpHandler extends org.glassfish.grizzly.http.server.HttpHandler {
         currentRoute.getHandler().handle(this.request, this.response);
     }
 
-    public HttpRequest getRequest() {
-        return request;
-    }
-
-    public void setRequest(Request request) {
-        HttpRequest req = new HttpRequest();
-        req.setRequest(request);
-        this.request = req;
-    }
-
-    public HttpResponse getResponse() {
-        return response;
-    }
-
-    public void setResponse(Response response) {
-        HttpResponse resp = new HttpResponse();
-        resp.setResponse(response);
-        resp.setViewResolver(this.viewResolver);
-        this.response = resp;
-    }
-
-    public RouteCollection getRouteCollection() {
-        return routeCollection;
-    }
-
-    public void setRouteCollection(RouteCollection routeCollection) {
-        this.routeCollection = routeCollection;
-    }
-
-    public void setViewResolver(ViewResolver viewResolver) {
-        this.viewResolver = viewResolver;
-    }
-
     public String matchRoute(String currentPath, String routePath) {
         if (currentPath.equals(routePath)) {
             return currentPath;
         } else {
-            String[] currentPathSegments = currentPath.split("/");
-            String[] routePathSegments = routePath.split("/");
+            String[] currentPathSegments = currentPath.split(StringPool.FORWARD_SLASH);
+            String[] routePathSegments = routePath.split(StringPool.FORWARD_SLASH);
             if (currentPathSegments.length != routePathSegments.length && (currentPathSegments.length - routePathSegments.length == 1) && currentPathSegments[1].equals(routePathSegments[0])) {
                 String[] newRoutePathSegments = new String[routePathSegments.length];
                 newRoutePathSegments[0] = currentPathSegments[0];
@@ -89,7 +89,7 @@ public class HttpHandler extends org.glassfish.grizzly.http.server.HttpHandler {
                     if (routePathSegments[i - 1].equals(currentPathSegments[i])) {
                         newRoutePathSegments[i] = currentPathSegments[i];
                     } else {
-                        boolean hasCurlyBraces = routePathSegments[i].startsWith("{") && routePathSegments[i].endsWith("}") ? true : false;
+                        boolean hasCurlyBraces = routePathSegments[i].startsWith(StringPool.OPEN_CURLY_BRACE) && routePathSegments[i].endsWith(StringPool.CLOSE_CURLY_BRACE);
                         if (hasCurlyBraces) {
                             newRoutePathSegments[i] = currentPathSegments[i];
                         } else {
@@ -98,7 +98,7 @@ public class HttpHandler extends org.glassfish.grizzly.http.server.HttpHandler {
                     }
                 }
 
-                return String.join("/", newRoutePathSegments);
+                return String.join(StringPool.FORWARD_SLASH, newRoutePathSegments);
 
             } else if (currentPathSegments.length == routePathSegments.length) {
                 String[] newRoutePathSegments = new String[routePathSegments.length];
@@ -106,11 +106,11 @@ public class HttpHandler extends org.glassfish.grizzly.http.server.HttpHandler {
                     if (routePathSegments[i].equals(currentPathSegments[i])) {
                         newRoutePathSegments[i] = routePathSegments[i];
                     } else {
-                        boolean hasCurlyBraces = routePathSegments[i].startsWith("{") && routePathSegments[i].endsWith("}") ? true : false;
+                        boolean hasCurlyBraces = routePathSegments[i].startsWith(StringPool.OPEN_CURLY_BRACE) && routePathSegments[i].endsWith(StringPool.CLOSE_CURLY_BRACE);
                         if (hasCurlyBraces) {
                             newRoutePathSegments[i] = currentPathSegments[i];
-                            String pathParamName = routePathSegments[i].substring(1, routePathSegments[i].length() - 1);
-                            String pathParamValue = currentPathSegments[i];
+                            var pathParamName = routePathSegments[i].substring(1, routePathSegments[i].length() - 1);
+                            var pathParamValue = currentPathSegments[i];
                             this.request.setPathParam(pathParamName, pathParamValue);
                         } else {
                             newRoutePathSegments[i] = routePathSegments[i];
@@ -118,7 +118,7 @@ public class HttpHandler extends org.glassfish.grizzly.http.server.HttpHandler {
                     }
                 }
 
-                return String.join("/", newRoutePathSegments);
+                return String.join(StringPool.FORWARD_SLASH, newRoutePathSegments);
 
             } else {
                 return routePath;
