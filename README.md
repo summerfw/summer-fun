@@ -2,20 +2,20 @@
 [Summer Fun](https://julianjupiter.github.io/summer-fun) is a microframework for Java.
 
 ```java
+import summer.fun.Configuration;
 import summer.fun.SummerFun;
-import java.util.Arrays;
 import java.util.List;
 
 public class SampleApp {
     public static void main(String[] args) {
-        Configuration config = Configuration.builder()
+        var config = Configuration.builder()
             .withContextPath("/api")
             .build();
-        SummerFun app = new SummerFun()
+        var app = new SummerFun()
             .withConfiguration(config);
 
         app.get("/heroes", (request, response) -> {
-            List<Hero> heroes = getHeroes();
+            var heroes = getHeroes();
             response.json().send(heroes);
         });
 
@@ -26,17 +26,17 @@ public class SampleApp {
     }
     
     public static List<Hero> getHeroes() {
-        Hero hero1 = new Hero();
+        var hero1 = new Hero();
         hero1.setId(1);
         hero1.setLastName("Rizal");
         hero1.setFirstName("Jose");
         
-        Hero hero2 = new Hero();
+        var hero2 = new Hero();
         hero2.setId(2);
         hero2.setLastName("Bonifacio");
         hero2.setFirstName("Andres");
         
-        return Arrays.asList(hero1, hero2);
+        return List.of(hero1, hero2);
     }
     
 }
