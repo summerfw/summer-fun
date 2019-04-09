@@ -1,6 +1,6 @@
-package summer.fun.http.message;
+package summer.fun.http.message.util;
 
-public enum RequestMethod {
+public enum HttpMethod {
     CONNECT("CONNECT"),
     DELETE("DELETE"),
     GET("GET"),
@@ -13,7 +13,7 @@ public enum RequestMethod {
 
     private final String name;
 
-    RequestMethod(String name) {
+    HttpMethod(String name) {
         this.name = name;
     }
 

@@ -1,6 +1,6 @@
-package summer.fun.http.message;
+package summer.fun.http.message.util;
 
-public enum StatusCode {
+public enum HttpStatus {
     // Informational 1xx
     CONTINUE(100, "Continue"),
     SWITCHING_PROTOCOLS(101, "Switching Protocols"),
@@ -76,7 +76,7 @@ public enum StatusCode {
     private final int code;
     private final String reasonPhrase;
 
-    StatusCode(int code, String reasonPhrase) {
+    HttpStatus(int code, String reasonPhrase) {
         this.code = code;
         this.reasonPhrase = reasonPhrase;
     }
