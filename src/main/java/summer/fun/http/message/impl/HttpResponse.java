@@ -22,7 +22,7 @@ public class HttpResponse extends HttpMessage implements Response {
     }
 
     @Override
-    public int getStatusCode() {
+    public int getStatus() {
         return this.grizzlyResponse.getStatus();
     }
 
@@ -47,5 +47,10 @@ public class HttpResponse extends HttpMessage implements Response {
     @Override
     public String getReasonPhrase() {
         return this.grizzlyResponse.getMessage();
+    }
+
+    @Override
+    public Response withReasonPhrase(String reasonPhrase) throws IllegalArgumentException {
+        return null;
     }
 }

@@ -1,5 +1,10 @@
 package summer.fun.http.message.util;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public enum HttpStatus {
     // Informational 1xx
     CONTINUE(100, "Continue"),
@@ -73,16 +78,33 @@ public enum HttpStatus {
     NETWORK_AUTHENTICATION_REQUIRED(511, "Network Authentication Required"),
     NETWORK_CONNECT_TIMEOUT_ERROR(599, "Network Connect Timeout Error");
 
-    private final int code;
+    private static Map<Integer, HttpStatus> map = new HashMap<>(values().length, 1);
+    private final int statusCode;
     private final String reasonPhrase;
 
-    HttpStatus(int code, String reasonPhrase) {
-        this.code = code;
+    static {
+        map = Stream.of(values()).collect(Collectors.toMap(HttpStatus::value, httpStatus -> httpStatus));
+    }
+
+    HttpStatus(int statusCode, String reasonPhrase) {
+        this.statusCode = statusCode;
         this.reasonPhrase = reasonPhrase;
     }
 
-    public int getCode() {
-        return code;
+    @Override
+    public String toString() {
+        return this.value() + " " + name();
+    }
+
+    public int value() {
+        return statusCode;
+    }
+
+    public HttpStatus of(int statusCode) {
+        var result = map.get(statusCode);
+        if (result != null) throw new IllegalArgumentException("Invalid HttpStatus Status Code: " + statusCode);
+
+        return result;
     }
 
     public String getReasonPhrase() {

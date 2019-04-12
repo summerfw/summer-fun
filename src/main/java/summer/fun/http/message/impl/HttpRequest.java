@@ -4,6 +4,7 @@ import summer.fun.http.message.Request;
 import summer.fun.http.message.Uri;
 
 public class HttpRequest extends HttpMessage implements Request {
+
     private String requestTarget;
     private String method;
 
@@ -27,7 +28,12 @@ public class HttpRequest extends HttpMessage implements Request {
 
     @Override
     public String getMethod() {
-        return null;
+        return this.method;
+    }
+
+    @Override
+    public void setMethod(String method) throws IllegalArgumentException {
+
     }
 
     @Override
