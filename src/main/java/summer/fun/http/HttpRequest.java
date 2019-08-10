@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * HttpRequest
+ * 
+ * @author julian
  */
 public class HttpRequest {
 
     private org.glassfish.grizzly.http.server.Request request;
-    private Map<String, String> pathParams = new HashMap<>();
+    private final Map<String, String> pathParams = new HashMap<>();
 
     public org.glassfish.grizzly.http.server.Request getRequest() {
         return request;

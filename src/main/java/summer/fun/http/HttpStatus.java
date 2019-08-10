@@ -1,5 +1,9 @@
 package summer.fun.http;
 
+/**
+ * 
+ * @author julian
+ */
 public enum HttpStatus {
     OK_200(200, "OK"),
     CREATED_201_(201, "CREATED"),

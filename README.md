@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SampleApp {
     public static void main(String[] args) {
-        Configuration config = Configuration.builder()
+        Configuration config = ConfigurationBuilder.newBuilder()
             .withContextPath("/api")
             .build();
         SummerFun app = new SummerFun()
@@ -95,12 +95,13 @@ java -jar ./target/summer-fun-sample-1.0.0.jar
 
 Open browser:
 ```
-http://localhost:8083/
-http://localhost:8083/app/users
-http://localhost:8083/app/users/1
-http://localhost:8083/app/users/2
-http://localhost:8083/app/users/3
-http://localhost:8083/app/user-list
+http://localhost:7000/
+http://localhost:7000/app/users
+http://localhost:7000/app/users/1
+http://localhost:7000/app/users/2
+http://localhost:7000/app/users/3
+http://localhost:7000/app/users/10
+http://localhost:7000/app/user-list
 ```
 
 # Disclaimer

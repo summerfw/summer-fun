@@ -1,17 +1,20 @@
 package summer.fun;
 
+import java.io.IOException;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.NetworkListener;
 import org.glassfish.grizzly.http.server.ServerConfiguration;
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
+import summer.fun.config.Configuration;
+import summer.fun.config.ConfigurationBuilder;
 import summer.fun.http.HttpMethod;
 
 public class SummerFun {
     private Configuration configuration;
-    private RouteCollection routeCollection;
+    private final RouteCollection routeCollection;
 
     public SummerFun() {
-        this.configuration = Configuration.create();
+        this.configuration = ConfigurationBuilder.newBuilder().build();
         this.routeCollection =  new RouteCollection();
     }
 
@@ -103,7 +106,7 @@ public class SummerFun {
             server.start();
             runnable.run();
             System.in.read();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println(e);
         }
     }

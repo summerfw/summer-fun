@@ -1,13 +1,10 @@
 package summer.fun;
 
 import summer.fun.http.HttpMethod;
-import summer.fun.http.HttpRequest;
-import summer.fun.http.HttpResponse;
-
-import java.util.function.BiConsumer;
 
 /**
- * Route
+ * 
+ * @author julian
  */
 public class Route {
     private HttpMethod httpMethod;

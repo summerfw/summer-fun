@@ -3,12 +3,14 @@ package summer.fun;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import summer.fun.config.Configuration;
 
 /**
- * RouteCollection
+ * 
+ * @author julian
  */
 public class RouteCollection {
-    private List<Route> routes = new ArrayList<>();
+    private final List<Route> routes = new ArrayList<>();
 
     public void add(Route route, Configuration configuration) {
         String contextPath = configuration.getContextPath();

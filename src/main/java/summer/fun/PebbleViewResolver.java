@@ -8,6 +8,10 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
 
+/**
+ * 
+ * @author julian
+ */
 public class PebbleViewResolver implements ViewResolver {
     private String prefix;
     private String suffix;

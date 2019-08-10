@@ -10,7 +10,8 @@ import java.io.Writer;
 import java.util.Map;
 
 /**
- * HttpResponse
+ * 
+ * @author julian
  */
 public class HttpResponse {
 
@@ -72,8 +73,8 @@ public class HttpResponse {
             } else {
                 this.getWriter().write(object.toString());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
     }
 

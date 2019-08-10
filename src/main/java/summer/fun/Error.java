@@ -2,6 +2,10 @@ package summer.fun;
 
 import java.time.LocalDateTime;
 
+/**
+ * 
+ * @author julian
+ */
 public class Error {
     private LocalDateTime timestamp;
     private int status;

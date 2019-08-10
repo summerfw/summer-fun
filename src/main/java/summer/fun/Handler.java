@@ -10,6 +10,10 @@ import summer.fun.http.HttpStatus;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * 
+ * @author julian
+ */
 public class Handler extends HttpHandler {
     private HttpRequest request;
     private HttpResponse response;
@@ -90,7 +94,7 @@ public class Handler extends HttpHandler {
                     if (routePathSegments[i - 1].equals(currentPathSegments[i])) {
                         newRoutePathSegments[i] = currentPathSegments[i];
                     } else {
-                        boolean hasCurlyBraces = routePathSegments[i].startsWith("{") && routePathSegments[i].endsWith("}") ? true : false;
+                        boolean hasCurlyBraces = routePathSegments[i].startsWith("{") && routePathSegments[i].endsWith("}");
                         if (hasCurlyBraces) {
                             newRoutePathSegments[i] = currentPathSegments[i];
                         } else {
@@ -107,7 +111,7 @@ public class Handler extends HttpHandler {
                     if (routePathSegments[i].equals(currentPathSegments[i])) {
                         newRoutePathSegments[i] = routePathSegments[i];
                     } else {
-                        boolean hasCurlyBraces = routePathSegments[i].startsWith("{") && routePathSegments[i].endsWith("}") ? true : false;
+                        boolean hasCurlyBraces = routePathSegments[i].startsWith("{") && routePathSegments[i].endsWith("}");
                         if (hasCurlyBraces) {
                             newRoutePathSegments[i] = currentPathSegments[i];
                             String pathParamName = routePathSegments[i].substring(1, routePathSegments[i].length() - 1);

@@ -1,5 +1,9 @@
 package summer.fun.http;
 
+/**
+ * 
+ * @author julian
+ */
 public enum HttpMethod {
     CONNECT("CONNECT"),
     DELETE("DELETE"),

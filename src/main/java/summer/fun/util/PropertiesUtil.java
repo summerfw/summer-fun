@@ -8,6 +8,10 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * 
+ * @author julian
+ */
 public class PropertiesUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(PropertiesUtil.class);
     private static PropertiesUtil INSTANCE;
@@ -34,7 +38,7 @@ public class PropertiesUtil {
             if (inputStream != null) {
                 properties.load(inputStream);
             }
-        } catch (Exception exception) {
+        } catch (IOException exception) {
             LOGGER.error("Property file '" + PROPERTIES_FILENAME + "' not found in the classpath");
         }
     }
